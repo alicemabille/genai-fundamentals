@@ -17,9 +17,11 @@ driver = GraphDatabase.driver(
 )
 
 # Create Cypher LLM 
-t2c_llm = OpenAILLM(
-    model_name="gpt-4o", 
-    model_params={"temperature": 0}
+t2c_llm=OpenAILLM(
+    model_name="gpt-5-mini",
+    model_params={
+        "reasoning_effort": "high"
+    }
 )
 
 # tag::examples[]
@@ -39,7 +41,7 @@ retriever = Text2CypherRetriever(
 )
 # end::retriever[]
 
-llm = OpenAILLM(model_name="gpt-4o")
+llm = OpenAILLM(model_name="gpt-5.2")
 rag = GraphRAG(retriever=retriever, llm=llm)
 
 query_text = "What is the highest rating for Goodfellas?"

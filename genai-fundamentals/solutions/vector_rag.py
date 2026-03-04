@@ -35,14 +35,16 @@ retriever = VectorRetriever(
 
 # tag::llm[]
 # Create the LLM
-llm = OpenAILLM(model_name="gpt-4o")
+llm = OpenAILLM(model_name="gpt-5.2")
 # end::llm[]
 
 # tag::llm-temp[]
 # Modify the LLM configuration if needed
-llm = OpenAILLM(
-    model_name="gpt-3.5-turbo", 
-    model_params={"temperature": 1}
+llm=OpenAILLM(
+    model_name="gpt-5-mini",
+    model_params={
+        "reasoning_effort": "low"
+    }
 )
 # end::llm-temp[]
 

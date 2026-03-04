@@ -22,7 +22,7 @@ t2c_llm =
 # Build the retriever
 retriever = 
 
-llm = OpenAILLM(model_name="gpt-4o")
+llm = OpenAILLM(model_name="gpt-5.2")
 rag = GraphRAG(retriever=retriever, llm=llm)
 
 query_text = "Which movies did Hugo Weaving star in?"

@@ -47,7 +47,7 @@ retriever = VectorCypherRetriever(
 # end::retriever[]
 
 #  Create the LLM
-llm = OpenAILLM(model_name="gpt-4o")
+llm = OpenAILLM(model_name="gpt-5.2")
 
 # Create GraphRAG pipeline
 rag = GraphRAG(retriever=retriever, llm=llm)
