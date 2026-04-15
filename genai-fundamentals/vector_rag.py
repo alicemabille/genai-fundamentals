@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from neo4j import GraphDatabase
-from neo4j_graphrag.embeddings.openai import OpenAIEmbeddings
+from neo4j_graphrag.embeddings.ollama import OllamaEmbeddings
 from neo4j_graphrag.retrievers import VectorRetriever
 
 # Connect to Neo4j database
@@ -16,7 +16,7 @@ driver = GraphDatabase.driver(
 )
 
 # Create embedder
-embedder = OpenAIEmbeddings(model="text-embedding-ada-002")
+embedder = OllamaEmbeddings(model="text-embedding-ada-002")
 
 # Create retriever
 retriever = VectorRetriever(

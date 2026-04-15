@@ -93,9 +93,9 @@ class TestEnvironment(unittest.TestCase):
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestEnvironment('test_env_file_exists'))
-    suite.addTest(TestEnvironment('test_openai_variables'))
+    #suite.addTest(TestEnvironment('test_openai_variables')) # removing this for local development with Ollama
     suite.addTest(TestEnvironment('test_neo4j_variables'))
-    suite.addTest(TestEnvironment('test_openai_connection'))
+    #suite.addTest(TestEnvironment('test_openai_connection'))# removing this for local development with Ollama
     suite.addTest(TestEnvironment('test_neo4j_connection'))
     return suite
 

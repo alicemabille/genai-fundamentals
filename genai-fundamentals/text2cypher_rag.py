@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from neo4j import GraphDatabase
-from neo4j_graphrag.llm import OpenAILLM
+from neo4j_graphrag.llm import OllamaLLM
 from neo4j_graphrag.generation import GraphRAG
 
 # Connect to Neo4j database
@@ -22,7 +22,7 @@ t2c_llm =
 # Build the retriever
 retriever = 
 
-llm = OpenAILLM(model_name="gpt-5.2")
+llm = OllamaLLM(model_name="orca-mini")
 rag = GraphRAG(retriever=retriever, llm=llm)
 
 query_text = "Which movies did Hugo Weaving star in?"
