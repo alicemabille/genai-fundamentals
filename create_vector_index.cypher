@@ -1,3 +1,5 @@
+// run this after having created emmbeddings
+
 CREATE VECTOR INDEX knowledgeDescriptions IF NOT EXISTS
 FOR (k:Knowledge)
 ON k.embedding

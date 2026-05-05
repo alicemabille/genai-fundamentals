@@ -4,9 +4,9 @@ load_dotenv()
 
 from neo4j import GraphDatabase
 from neo4j_graphrag.embeddings.ollama import OllamaEmbeddings
-from neo4j_graphrag.embeddings.openai import OpenAIEmbeddings
 from neo4j_graphrag.llm import OllamaLLM
 from neo4j_graphrag.generation import GraphRAG
+from neo4j_graphrag.retrievers import VectorCypherRetriever
 
 # Connect to Neo4j database
 driver = GraphDatabase.driver(
@@ -21,13 +21,24 @@ driver = GraphDatabase.driver(
 embedder = OllamaEmbeddings(model=os.getenv("EMBEDDING_MODEL"))
 
 # Define retrieval query
-retrieval_query =
+retrieval_query = """
+MATCH (k:Knowledge)<-[r]-()
+RETURN 
+  k.id AS id, k.label AS label, k.description AS description, k.type AS type, score AS similarityScore, 
+  collect { MATCH (k)-[]->(k1:Knowledge) RETURN k1.id, k1.label, k1.description, k1.type} as relatedKnowlegdes
+"""
 
 # Create retriever
-retriever = 
+retriever = VectorCypherRetriever(
+    driver,
+    neo4j_database=os.getenv("NEO4J_DATABASE"),
+    index_name="knowledgeDescriptions",
+    embedder=embedder,
+    retrieval_query=retrieval_query,
+)
 
 #  Create the LLM
-llm = OllamaLLM(model_name="gpt-5.2")
+llm = OllamaLLM(model_name=os.getenv("LLM_NAME"))
 
 # Create GraphRAG pipeline
 rag = GraphRAG(retriever=retriever, llm=llm)

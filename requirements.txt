@@ -12,6 +12,7 @@ jiter            ==0.13.0
 json_repair      ==0.44.1
 neo4j            ==6.1.0
 neo4j-graphrag   ==1.13.1
+"neo4j_graphrag[ollama]"
 numpy            ==2.4.2
 openai           ==1.109.1
 pip              ==26.0.1

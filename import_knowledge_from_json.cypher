@@ -1,5 +1,5 @@
 //  read whole folder and import all
-CALL apoc.load.directory("*.json", "file:///Users/alice/.Neo4jDesktop2/Data/dbmss/dbms-190679c2-4330-49a1-8984-b6f3c9a02da5/import",  {recursive: true})
+CALL apoc.load.directory("*.json", "",  {recursive: true})
 YIELD value as files
 UNWIND files as file
 WITH "file://" + replace(file, '\\', '/') AS file
