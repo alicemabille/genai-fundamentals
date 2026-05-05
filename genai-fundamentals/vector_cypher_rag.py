@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from neo4j import GraphDatabase
+from neo4j_graphrag.embeddings.ollama import OllamaEmbeddings
 from neo4j_graphrag.embeddings.openai import OpenAIEmbeddings
 from neo4j_graphrag.llm import OllamaLLM
 from neo4j_graphrag.generation import GraphRAG
@@ -17,7 +18,7 @@ driver = GraphDatabase.driver(
 )
 
 # Create embedder
-embedder = OpenAIEmbeddings(model="text-embedding-ada-002")
+embedder = OllamaEmbeddings(model=os.getenv("EMBEDDING_MODEL"))
 
 # Define retrieval query
 retrieval_query =

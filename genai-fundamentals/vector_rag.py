@@ -16,7 +16,7 @@ driver = GraphDatabase.driver(
 )
 
 # Create embedder
-embedder = OllamaEmbeddings(model="text-embedding-ada-002")
+embedder = OllamaEmbeddings(model=os.getenv("EMBEDDING_MODEL"))
 
 # Create retriever
 retriever = VectorRetriever(
