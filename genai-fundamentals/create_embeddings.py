@@ -14,7 +14,7 @@ def main():
     with neo4j.GraphDatabase.driver(URI, auth=AUTH) as driver:
         driver.verify_connectivity()
 
-        embedder = OllamaEmbeddings(model=os.getenv("EMBEDDING_MODEL"))
+        embedder = OllamaEmbeddings(model=os.getenv("EMBEDDING_MODEL")) #I use embeddinggemma because it's small
 
         batch_size = 100
         batch_n = 1
@@ -56,6 +56,10 @@ def main():
     Knowledge nodes with embeddings: {records[0].get('countKnowledgesWithEmbeddings')}.
     Embedding size: {records[0].get('embeddingSize')}.
         """)
+
+#    Embeddings generated and attached to nodes.
+#    Knowledge nodes with embeddings: 98.
+#    Embedding size: 768.
 
 
 def import_batch(driver, nodes_with_embeddings, batch_n):
