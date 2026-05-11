@@ -23,11 +23,11 @@ class TestEnvironment(unittest.TestCase):
             os.getenv(variable_name),
             f"{variable_name} not found in .env file")
 
-    def test_openai_variables(self):
+    def test_ollama_variables(self):
         if TestEnvironment.skip_env_variable_tests:
-            self.skipTest("Skipping OpenAI env variable test")
+            self.skipTest("Skipping Ollama env variable test")
 
-        self.env_variable_exists('OPENAI_API_KEY')
+        self.env_variable_exists('LLM_NAME')
         TestEnvironment.skip_openai_test = False
 
     def test_neo4j_variables(self):
@@ -93,7 +93,7 @@ class TestEnvironment(unittest.TestCase):
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestEnvironment('test_env_file_exists'))
-    #suite.addTest(TestEnvironment('test_openai_variables')) # removing this for local development with Ollama
+    suite.addTest(TestEnvironment('test_ollama_variables'))
     suite.addTest(TestEnvironment('test_neo4j_variables'))
     #suite.addTest(TestEnvironment('test_openai_connection'))# removing this for local development with Ollama
     suite.addTest(TestEnvironment('test_neo4j_connection'))

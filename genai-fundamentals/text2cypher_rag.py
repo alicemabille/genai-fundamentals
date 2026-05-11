@@ -5,6 +5,7 @@ load_dotenv()
 from neo4j import GraphDatabase
 from neo4j_graphrag.llm import OllamaLLM
 from neo4j_graphrag.generation import GraphRAG
+from neo4j_graphrag.retrievers import Text2CypherRetriever
 
 # Connect to Neo4j database
 driver = GraphDatabase.driver(
@@ -16,16 +17,22 @@ driver = GraphDatabase.driver(
 )
 
 # Create LLM 
-t2c_llm =
+t2c_llm = OllamaLLM(
+    model_name=os.getenv('LLM_NAME')
+)
 
 
 # Build the retriever
-retriever = 
+retriever = Text2CypherRetriever(
+    driver=driver,
+    neo4j_database=os.getenv('NEO4J_DATABASE'),
+    llm=t2c_llm
+)
 
-llm = OllamaLLM(model_name="orca-mini")
+llm = OllamaLLM(model_name=os.getenv('LLM_NAME'))
 rag = GraphRAG(retriever=retriever, llm=llm)
 
-query_text = "Which movies did Hugo Weaving star in?"
+query_text = "Quelles connaissances sont liées à la conjugaison du verbe 'être' au passé simple ?"
 
 response = rag.search(
     query_text=query_text,

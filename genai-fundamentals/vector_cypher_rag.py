@@ -24,8 +24,20 @@ embedder = OllamaEmbeddings(model=os.getenv("EMBEDDING_MODEL"))
 retrieval_query = """
 MATCH (k:Knowledge)<-[r]-()
 RETURN 
-  k.id AS id, k.label AS label, k.description AS description, k.type AS type, score AS similarityScore, 
-  collect { MATCH (k)-[]->(k1:Knowledge) RETURN k1.id, k1.label, k1.description, k1.type} as relatedKnowlegdes
+    k.id AS id,
+    k.label AS label,
+    k.description AS description,
+    k.type AS type,
+    score AS similarityScore,
+    COLLECT {
+        MATCH (k)-[]->(k1:Knowledge)
+        RETURN {
+            id: k1.id,
+            label: k1.label,
+            description: k1.description,
+            type: k1.type
+        }
+    } AS relatedKnowledges
 """
 
 # Create retriever
@@ -38,13 +50,13 @@ retriever = VectorCypherRetriever(
 )
 
 #  Create the LLM
-llm = OllamaLLM(model_name=os.getenv("LLM_NAME"))
+llm = OllamaLLM(model_name=os.getenv("LLM_NAME")) # ollama pull ministral-3:3b
 
 # Create GraphRAG pipeline
 rag = GraphRAG(retriever=retriever, llm=llm)
 
 # Search
-query_text = "Find the highest rated action movie about travelling to other planets"
+query_text = "aide-moi à m'améliorer en conjugaison"
 
 response = rag.search(
     query_text=query_text, 
